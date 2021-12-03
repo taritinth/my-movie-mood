@@ -1,4 +1,4 @@
-package com.sop.lab10.movielistservice;
+package com.sop.movielistservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

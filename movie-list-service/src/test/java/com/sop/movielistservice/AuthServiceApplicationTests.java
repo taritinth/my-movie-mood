@@ -1,4 +1,4 @@
-package com.sop.lab10.movielistservice;
+package com.sop.movielistservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
