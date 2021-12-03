@@ -31,8 +31,11 @@ public class AuthenticationFilter implements GatewayFilter {
 
             final String token = this.getAuthHeader(request);
 
-            if(jwtUtil.isInvalid(token))
+            if(jwtUtil.isInvalid(token)){
+                System.out.println("isInvalid");
                 return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
+            }
+
 
             this.populateRequestWithHeaders(exchange, token);
         }
@@ -57,6 +60,7 @@ public class AuthenticationFilter implements GatewayFilter {
         Claims claims = jwtUtil.getAllClaimsFromToken(token);
         exchange.getRequest().mutate()
                 .header("id",String.valueOf(claims.get("id")))
+                .header("email",String.valueOf(claims.get("email")))
                 .header("role", String.valueOf(claims.get("role")))
                 .build();
     }
