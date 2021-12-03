@@ -1,4 +1,4 @@
-package com.sop.lab10.authservice.entities;
+package com.sop.lab10.movielistservice.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
