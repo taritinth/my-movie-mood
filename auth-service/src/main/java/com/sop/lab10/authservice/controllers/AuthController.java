@@ -25,7 +25,8 @@ public class AuthController {
     }
 
     @GetMapping(value = "/me")
-    public ResponseEntity<AuthMeResponse> me(@RequestHeader(value = "id") String id, @RequestHeader(value = "email") String email, @RequestHeader(value = "role") String role) {
+    public ResponseEntity<AuthMeResponse> me(@RequestHeader(value = "Authorization") String token, @RequestHeader(value = "id") String id, @RequestHeader(value = "email") String email, @RequestHeader(value = "role") String role) {
+        System.out.println("Authorization : "+ token);
         return ResponseEntity.ok(authService.me(id, email, role));
     }
 
