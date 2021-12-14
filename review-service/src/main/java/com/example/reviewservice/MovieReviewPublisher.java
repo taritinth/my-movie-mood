@@ -1,22 +1,30 @@
 package com.example.reviewservice;
 
+import com.example.reviewservice.entities.Review;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping(value = "/review")
 public class MovieReviewPublisher {
     @Autowired
     private RabbitTemplate RabbitTemplate;
 
-    @RequestMapping(value = "/addMovieReview", method = RequestMethod.GET)
-    public String addMovieReview(@RequestParam("movie") String movieName, @RequestParam("score") double score, @RequestParam("review") String review, @RequestParam("reviewby") String reviewBy) {
-        MovieReview mr = new MovieReview(movieName, score, review, reviewBy);
-        RabbitTemplate.convertAndSend("MyMovieMoodDirect", "review", mr);
-        return "Complete";
+    @PostMapping(value = "/addReview")
+    public boolean addMovieReview(@RequestBody Review review) {
+//        MovieReview mr = new MovieReview(movieName, score, review, reviewBy);
+        boolean status = (boolean) RabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "addReview", review);
+        return status;
+    }
+
+    @GetMapping(value = "/getReview/{movieId}")
+    public List<Review> getMovieReview(@PathVariable("movieId") String movieId) {
+//        MovieReview mr = new MovieReview(movieName, score, review, reviewBy);
+        List<Review> reviews = (List<Review>) RabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "getReview", movieId);
+        return reviews;
     }
 
 }

@@ -1,18 +1,28 @@
 package com.example.reviewservice;
 
+import com.example.reviewservice.entities.Review;
+import com.example.reviewservice.repository.ReviewService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MovieReviewConsumer {
 
-    @RabbitListener(queues = "MovieReviewQueue")
-    public void getMovieReview(MovieReview mr) {
-        System.out.println("Movie : "+mr.getMovieName());
-        System.out.println("Score : "+mr.getScore());
-        System.out.println("Review : "+mr.getReview());
-        System.out.println("Review By : "+mr.getReviewBy());
+    @Autowired
+    private ReviewService reviewService;
 
+    @RabbitListener(queues = "AddMovieReviewQueue")
+    public boolean addMovieReview(Review review) {
+        return reviewService.addReview(review);
+    }
+
+    @RabbitListener(queues = "GetMovieReviewQueue")
+    public List<Review> getReviewByMovieId(String movieId){
+        return reviewService.getReviewByMovieId(movieId);
     }
 
 }

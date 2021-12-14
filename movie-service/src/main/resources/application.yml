@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: movie-list-service
+    name: movie-service
   data:
     mongodb:
       host: localhost
