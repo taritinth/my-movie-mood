@@ -1,6 +1,6 @@
-package com.sop.lab10.authservice.services;
+package com.example.authservice.services;
 
-import com.sop.lab10.authservice.entities.User;
+import com.example.authservice.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -43,7 +43,7 @@ public class JwtUtil {
 
     public String generate(User userVO, String type){
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", userVO.getId());
+        claims.put("id", userVO.get_id());
         claims.put("email", userVO.getEmail());
         claims.put("role", userVO.getRole());
         return doGenerateToken(claims, userVO.getEmail(), type);

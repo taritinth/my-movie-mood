@@ -1,16 +1,19 @@
-package com.sop.lab10.authservice.entities;
+package com.sop.movieservice.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthMeResponse {
-    private String id;
+@Data
+@Document("User")
+public class User {
+    private String _id;
     private String email;
     private String role;
+    private String password;
 }

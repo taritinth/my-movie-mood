@@ -1,4 +1,4 @@
-package com.sop.lab10.authservice.entities;
+package com.example.authservice.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
