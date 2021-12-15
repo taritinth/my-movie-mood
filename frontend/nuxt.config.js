@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'frontend',
+    title: 'My Movie Mood',
     htmlAttrs: {
       lang: 'en',
     },
@@ -35,11 +35,43 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
 
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: 'accessToken',
+          },
+          user: { url: '/auth/me', method: 'get', propertyName: '' },
+          logout: false,
+        },
+      },
+      // tokenName: 'Authorization'
+    },
+    redirect: {
+      login: '/login',
+      logout: '/',
+    },
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'http://localhost:8080'
+        : 'http://localhost:8080',
+    withCredentials: true,
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    parallel: true,
+    cache: true,
+    // hardSource: true,
+  },
 }

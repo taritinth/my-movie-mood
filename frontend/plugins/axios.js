@@ -6,25 +6,27 @@ const instance = axios.create({
       : 'http://localhost:8080',
 })
 
-// const getToken = function () {
-//   if (process.server) {
-//     //nuxt process in server side
-//     return
-//   }
-//   if (window.$nuxt) {
-//     return window.$nuxt.$auth.getToken('local')
-//   }
-// }
+const getToken = function () {
+  if (process.server) {
+    //nuxt process in server side
+    return
+  }
+  if (window.$nuxt) {
+    return window.$nuxt.$auth.getToken('local')
+  }
+}
 
 const CancelToken = axios.CancelToken
 let cancel
 
 instance.interceptors.request.use(
   (config) => {
-    // const token = getToken()
-    // if (token) {
-    //   config.headers['Authorization'] = token
-    // }
+    const token = getToken()
+
+    if (token) {
+      config.headers['Authorization'] = token
+    }
+
     // if (cancel) {
     //   cancel()
     // }
@@ -32,6 +34,7 @@ instance.interceptors.request.use(
     //   // An executor function receives a cancel function as a parameter
     //   cancel = c
     // })
+
     return config
   },
   (error) => {

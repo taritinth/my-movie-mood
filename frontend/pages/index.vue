@@ -6,8 +6,11 @@
 import { axios } from '@/plugins/axios'
 
 export default {
+  middleware: ['auth'],
   data() {
-    movies: []
+    return {
+      movies: [],
+    }
   },
   async mounted() {
     await this.getMovies()
