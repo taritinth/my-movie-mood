@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, String> {
 
-    @Query(value = "{name : {$regex : '?0'}")
-    public List<Movie> findByName(String name);
+    @Query(value = "{name:{$regex:'?0', $options:'i'}}")
+    public List<Movie> findByMovieName(String name);
+
+    @Query(value = "{_id:'?0'}")
+    public Movie findByMovieId(String id);
 }

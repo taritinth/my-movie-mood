@@ -18,5 +18,6 @@ public class Movie {
     private int year;
     private int vote;
     private String poster;
+    private String imdbId;
     private Double imdbRating;
 }

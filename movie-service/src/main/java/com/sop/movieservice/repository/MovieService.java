@@ -1,9 +1,12 @@
 package com.sop.movieservice.repository;
 
 import com.sop.movieservice.entities.Movie;
+import com.sop.movieservice.entities.MovieImdb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
@@ -21,7 +24,23 @@ public class MovieService {
 
     public List<Movie> getMovieByName(String name) {
         try {
-            return repository.findByName(name);
+            return repository.findByMovieName(name);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Movie getMovieById(String id) {
+        try {
+            Movie movie = repository.findByMovieId(id);
+            MovieImdb out = WebClient.create()
+                    .get()
+                    .uri("http://www.omdbapi.com/?apikey=96475f3d&i=" + movie.getImdbId())
+                    .retrieve()
+                    .bodyToMono(MovieImdb.class)
+                    .block();
+            movie.setImdbRating(Double.parseDouble(out.getImdbRating()));
+            return movie;
         } catch (Exception e) {
             return null;
         }
