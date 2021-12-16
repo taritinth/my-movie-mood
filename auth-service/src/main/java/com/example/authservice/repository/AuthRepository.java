@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthRepository extends MongoRepository<User, String> {
     //
-    @Query(value = "{email:'?0',password:'?1'}")
-    public User findUser(String email,String password);
+    @Query(value = "{email:'?0'}")
+    public User findUser(String email);
 }
