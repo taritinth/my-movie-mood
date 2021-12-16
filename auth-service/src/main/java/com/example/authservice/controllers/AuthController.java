@@ -1,6 +1,8 @@
 package com.example.authservice.controllers;
 
 import com.example.authservice.entities.AuthRequest;
+import com.example.authservice.entities.AuthResponse;
+import com.example.authservice.entities.User;
 import com.example.authservice.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +16,19 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-//    @Autowired
+    //    @Autowired
 //    public AuthController(final AuthService authService) {
 //        this.authService = authService;
 //    }
+    @PostMapping(value = "/signup")
+    public ResponseEntity<?> signUp(@RequestBody User user) {
+        return ResponseEntity.ok(authService.signUp(user)) ;
+    }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> logIn(@RequestBody AuthRequest authRequest) {
-        return authService.logIn(authRequest) != null ? ResponseEntity.ok(authService.logIn(authRequest)) : new ResponseEntity<>("INVALID AUTHENTICATION", HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<?> signIn(@RequestBody AuthRequest authRequest) {
+        AuthResponse res = authService.signIn(authRequest);
+        return res != null ? ResponseEntity.ok(res) : new ResponseEntity<>("INVALID AUTHENTICATION", HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping(value = "/me")

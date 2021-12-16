@@ -19,7 +19,31 @@ public class AuthService {
         this.jwt = jwt;
     }
 
-    public AuthResponse logIn(AuthRequest authRequest) {
+    public boolean signUp(User user) {
+        try {
+
+            System.out.println(user);
+            //check email and password here
+            User userObj = repository.findUser(user.getEmail());
+
+            if (userObj == null) {
+                String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+                user.setPassword(hashed);
+                repository.insert(user);
+
+                return true;
+            } else {
+                System.out.println("User exist");
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Exception e");
+            return false;
+        }
+    }
+
+    public AuthResponse signIn(AuthRequest authRequest) {
         try {
             //check email and password here
             User userObj = repository.findUser(authRequest.getEmail());

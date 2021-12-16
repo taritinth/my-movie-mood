@@ -38,7 +38,15 @@
             placeholder="Password"
           />
         </div>
-
+        <div class="mb-6">
+          <input
+            v-model="confirmPassword"
+            class="w-full p-3 pl-5 rounded-2xl text-white border border-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 transition ease-in-out duration-300"
+            style="background-color: #151f30"
+            type="password"
+            placeholder="Confirm Password"
+          />
+        </div>
         <!-- <div class="flex items-center justify-between">
           <div class="flex items-center">
             <input
@@ -64,12 +72,11 @@
 
         <div class="mt-12">
           <button
-            @click="login"
+            @click="signUp"
             type="submit"
             class="rounded-2xl group relative w-full flex justify-center p-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none transition ease-in-out duration-300"
           >
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <!-- Heroicon name: solid/lock-closed -->
+            <!-- <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <svg
                 class="h-5 w-5 text-blue-500 group-hover:text-blue-400"
                 xmlns="http://www.w3.org/2000/svg"
@@ -83,34 +90,9 @@
                   clip-rule="evenodd"
                 />
               </svg>
-            </span>
-            Sign in
+            </span> -->
+            Sign up
           </button>
-        </div>
-
-        <div class="flex items-center justify-center mt-10">
-          <!-- <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-            />
-            <label for="remember-me" class="ml-2 block text-sm text-gray-400">
-              Remember me
-            </label>
-          </div> -->
-
-          <div class="text-sm">
-            <span class="font-light text-gray-300"
-              >Don't have an account ?</span
-            >
-            <router-link to="/signup">
-              <span class="font-medium text-blue-500 hover:text-blue-600"
-                >Sign up</span
-              >
-            </router-link>
-          </div>
         </div>
       </form>
     </div>
@@ -126,28 +108,34 @@ export default {
     return {
       email: '',
       password: '',
+      confirmPassword: '',
     }
   },
   async mounted() {
     // await this.getMovies()
   },
   methods: {
-    async login(e) {
+    async signUp(e) {
       e.preventDefault()
+
+      if (this.email == '' || this.password == '' || this.confirmPassword == '')
+        return false
+
+      if (this.password != this.confirmPassword) return false
 
       const payload = {
         email: this.email,
         password: this.password,
+        role: 'user',
       }
 
       try {
-        await this.$auth.loginWith('local', {
-          data: payload,
-        })
-        this.$router.push('/')
+        const response = await axios.post(`/auth/signup`, payload)
+        console.log(response)
+        this.$router.push('/login')
       } catch (e) {
         console.log(e)
-        this.$router.push('/login')
+      } finally {
       }
     },
   },

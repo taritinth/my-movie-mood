@@ -66,7 +66,9 @@ public class MovieService {
                     .retrieve()
                     .bodyToMono(MovieImdb.class)
                     .block();
+
             movie.setImdbRating(Double.parseDouble(out.getImdbRating()));
+
             return movie;
         } catch (Exception e) {
             return null;

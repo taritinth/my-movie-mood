@@ -14,7 +14,7 @@ public class RouterValidator {
             "/movie/getMovieByName",
             "/movie/getAllMovies",
             "/movie/getMovieById",
-            "/auth/register",
+            "/auth/signup",
             "/auth/login"
     );
 

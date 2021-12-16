@@ -20,4 +20,6 @@ public class Movie {
     private String poster;
     private String imdbId;
     private Double imdbRating;
+    private String plot;
+    private String actors;
 }
