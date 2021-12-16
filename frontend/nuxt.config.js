@@ -6,7 +6,7 @@ export default {
       lang: 'en',
     },
     bodyAttrs: {
-      class: 'font-sans text-white',
+      class: 'font-sans text-white bg-my-movie-mood',
     },
     meta: [
       { charset: 'utf-8' },
@@ -18,7 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [{ src: '~/assets/css/custom.css', lang: 'css' }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],

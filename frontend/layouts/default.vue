@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #131720">
+  <div>
     <nav class="border-b border-gray-800">
       <div
         class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between px-4 py-6"
