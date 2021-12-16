@@ -20,4 +20,6 @@ public class ReviewPojo implements Serializable {
     private String review;
     private String reviewBy;
     private String userEmail;
+    private Timestamp timestamp;
+
 }

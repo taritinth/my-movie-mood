@@ -35,9 +35,15 @@ public class ReviewService {
         try {
             Review checkReviewId = repository.findByReviewId(review.getReviewId());
             if(checkReviewId == null){
-                review.setTimestamp(new Timestamp(System.currentTimeMillis()));
-                repository.save(review);
-                return true;
+
+                Review checkReviewBy = repository.findByReviewBy(review.getReviewBy(), review.getMovieId());
+                if (checkReviewBy == null) {
+                    review.setTimestamp(new Timestamp(System.currentTimeMillis()));
+                    repository.save(review);
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }
