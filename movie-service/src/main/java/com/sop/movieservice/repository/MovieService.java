@@ -14,6 +14,33 @@ public class MovieService {
     @Autowired
     private MovieRepository repository;
 
+    public boolean addMovie(Movie movie) {
+        try {
+            repository.save(movie);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean editMovie(Movie movie) {
+        try {
+            repository.save(movie);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean deleteMovie(Movie movie) {
+        try {
+            repository.delete(movie);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public List<Movie> getAllMovies() {
         try {
             return repository.findAll();
