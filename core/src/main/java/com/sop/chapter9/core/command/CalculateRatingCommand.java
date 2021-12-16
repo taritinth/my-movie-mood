@@ -8,9 +8,11 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CalculateRatingCommand {
 
     @TargetAggregateIdentifier
-    private final String id;
+    private final String reviewId;
     private final String movieId;
     private final Double rating;
     private final String review;
     private final String reviewBy;
+    private final Double movieRating;
+    private final int movieVote;
 }
