@@ -2,6 +2,7 @@ package com.appsdeveloperblog.estore.reviewservice.command.rest;
 
 import com.appsdeveloperblog.estore.reviewservice.command.commands.CreateReviewCommand;
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
+import com.appsdeveloperblog.estore.reviewservice.core.entities.ReviewPojo;
 import com.appsdeveloperblog.estore.reviewservice.core.repository.ReviewService;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -53,9 +54,9 @@ public class MovieReviewConsumer {
 
 
     @RabbitListener(queues = "GetMovieReviewQueue")
-    public List<Review> getReviewByMovieId(String movieId){
+    public List<ReviewPojo> getReviewByMovieId(String movieId){
         System.out.println(movieId);
-        return reviewService.getReviewByMovieId(movieId);
+        return  reviewService.getReviewByMovieId(movieId);
     }
 
 

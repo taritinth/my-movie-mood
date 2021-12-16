@@ -2,6 +2,7 @@ package com.appsdeveloperblog.estore.reviewservice.core.repository;
 
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Movie;
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
+import com.appsdeveloperblog.estore.reviewservice.core.entities.ReviewPojo;
 import com.appsdeveloperblog.estore.reviewservice.core.events.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,17 @@ public class ReviewService {
     private ReviewRepository repository;
 
     @Autowired
+    private ReviewRepository2 reviewRepository2;
+
+    @Autowired
     private MovieRepository movieRepository;
 
-    public List<Review> getReviewByMovieId(String movieId) {
+    public List<ReviewPojo> getReviewByMovieId(String movieId) {
         try {
-            return repository.findByMovieId(movieId);
+            System.out.println("d");
+            return reviewRepository2.findByMovieId(movieId);
         } catch (Exception e) {
+            System.out.println("ex");
             return null;
         }
     }
