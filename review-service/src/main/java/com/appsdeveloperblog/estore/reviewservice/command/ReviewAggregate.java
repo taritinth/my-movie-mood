@@ -22,9 +22,11 @@ public class ReviewAggregate {
     private String movieId;
     private Double rating;
     private String review;
+    private String reviewTitle;
     private String reviewBy;
     private Double movieRating;
     private int movieVote;
+    private String userEmail;
     
     public ReviewAggregate() {
     }
@@ -43,10 +45,13 @@ public class ReviewAggregate {
         this.reviewId = reviewCreatedEvent2.getReviewId();
         this.movieId = reviewCreatedEvent2.getMovieId();
         this.rating = reviewCreatedEvent2.getRating();
+        this.reviewTitle = reviewCreatedEvent2.getReviewTitle();
         this.review = reviewCreatedEvent2.getReview();
         this.reviewBy = reviewCreatedEvent2.getReviewBy();
         this.movieVote = reviewCreatedEvent2.getMovieVote();
         this.movieRating = reviewCreatedEvent2.getMovieRating();
+        this.userEmail = reviewCreatedEvent2.getUserEmail();
+
         System.out.println("tum talod mai");
         System.out.println(this.reviewId);
     }

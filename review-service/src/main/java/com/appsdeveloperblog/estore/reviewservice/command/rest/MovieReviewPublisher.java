@@ -29,7 +29,8 @@ public class MovieReviewPublisher {
     }
 
     @PostMapping(value = "/addReview")
-    public boolean addMovieReview(@RequestBody Review review) {
+    public boolean addMovieReview(@RequestBody Review review, @RequestHeader(value = "email") String email) {
+        review.setUserEmail(email);
         boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "addReview", review);
         return status;
     }

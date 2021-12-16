@@ -16,8 +16,10 @@ public class ReviewCreatedEvent2 {
     private String reviewId;
     private String movieId;
     private Double rating;
+    private String reviewTitle;
     private String review;
     private String reviewBy;
     private Double movieRating;
     private int movieVote;
+    private String userEmail;
 }

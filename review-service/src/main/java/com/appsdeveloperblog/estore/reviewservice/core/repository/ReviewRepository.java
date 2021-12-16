@@ -17,4 +17,7 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     @Query(value = "{movieId:'?0'}")
     public List<Review> findByMovieId(String movieId);
 
+    @Query(value = "{reviewId:'?0'}")
+    public Review findByReviewId(String reviewId);
+
 }

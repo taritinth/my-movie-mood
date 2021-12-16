@@ -22,8 +22,12 @@ public class RatingAggregate {
     private String reviewId;
     private String movieId;
     private Double rating;
+    private String reviewTitle;
     private String review;
     private String reviewBy;
+    private Double movieRating;
+    private int movieVote;
+    private String userEmail;
 
     @Autowired
     private RatingService ratingService;
@@ -57,7 +61,11 @@ public class RatingAggregate {
         this.reviewId = calculateRatingBla4Event.getReviewId();
         this.movieId = calculateRatingBla4Event.getMovieId();
         this.rating = calculateRatingBla4Event.getRating();
+        this.reviewTitle = calculateRatingBla4Event.getReviewTitle();
         this.review = calculateRatingBla4Event.getReview();
         this.reviewBy = calculateRatingBla4Event.getReviewBy();
+        this.movieRating = calculateRatingBla4Event.getMovieRating();
+        this.movieVote = calculateRatingBla4Event.getMovieVote();
+        this.userEmail = calculateRatingBla4Event.getUserEmail();
     }
 }

@@ -23,10 +23,12 @@ public class ReviewSaga {
                 .reviewId(review.getReviewId())
                 .movieId(review.getMovieId())
                 .rating(review.getRating())
+                .reviewTitle(review.getReviewTitle())
                 .review(review.getReview())
                 .movieVote(review.getMovieVote())
                 .movieRating(review.getMovieRating())
                 .reviewBy(review.getReviewBy())
+                .userEmail(review.getUserEmail())
                 .build();
         commandGateway.send(calculateRatingCommand, (commandMessage, commandResultMessage) -> {
             System.out.println("this is sout commmand " + commandResultMessage);

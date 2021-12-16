@@ -6,6 +6,7 @@ import com.appsdeveloperblog.estore.reviewservice.core.events.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -26,8 +27,14 @@ public class ReviewService {
 
     public boolean addReview(Review review) {
         try {
-            repository.insert(review);
-            return true;
+            Review checkReviewId = repository.findByReviewId(review.getReviewId());
+            if(checkReviewId == null){
+                review.setTimestamp(new Timestamp(System.currentTimeMillis()));
+                repository.save(review);
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }

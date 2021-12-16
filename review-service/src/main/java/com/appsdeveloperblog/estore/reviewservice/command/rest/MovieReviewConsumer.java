@@ -33,6 +33,7 @@ public class MovieReviewConsumer {
                 .rating(review.getRating())
                 .review(review.getReview())
                 .reviewBy(review.getReviewBy())
+                .reviewTitle(review.getReviewTitle())
                 .reviewId(uuid)
                 .movieVote(reviewService.getMovieById(review.getMovieId()).getVote())
                 .movieRating(reviewService.getMovieById(review.getMovieId()).getRating())

@@ -17,9 +17,11 @@ public class CalculateRatingBla4Event {
     private String ratingId;
     private String reviewId;
     private String movieId;
+    private String reviewTitle;
     private Double rating;
     private String review;
     private String reviewBy;
     private Double movieRating;
     private int movieVote;
+    private String userEmail;
 }
