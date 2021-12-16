@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: auth-service
+  data:
+    mongodb:
+#      host: localhost
+#      port: 27017
+      uri: mongodb+srv://root:1234@cluster0.2456c.mongodb.net/test
+      database: MyMovieMood
 
 jwt:
   secret: BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY

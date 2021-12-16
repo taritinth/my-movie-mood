@@ -14,4 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Movie {
     private String _id;
     private String name;
+    private Double rating;
+    private int year;
+    private int vote;
+    private String poster;
+    private Double imdbRating;
 }
