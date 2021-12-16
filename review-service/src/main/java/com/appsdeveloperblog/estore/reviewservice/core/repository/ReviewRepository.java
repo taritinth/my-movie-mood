@@ -20,7 +20,4 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     @Query(value = "{reviewId:'?0'}")
     public Review findByReviewId(String reviewId);
 
-    @Query(value = "{reviewBy:'?0', MovieId:'?1'}")
-    public Review findByReviewBy(String reviewId, String movieId);
-
 }

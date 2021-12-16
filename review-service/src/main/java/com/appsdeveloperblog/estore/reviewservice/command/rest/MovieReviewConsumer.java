@@ -38,7 +38,6 @@ public class MovieReviewConsumer {
                 .reviewId(uuid)
                 .movieVote(reviewService.getMovieById(review.getMovieId()).getVote())
                 .movieRating(reviewService.getMovieById(review.getMovieId()).getRating())
-                .userEmail(review.getUserEmail())
                 .build();
         review.setReviewId(uuid);
         System.out.println(reviewService.getReviewByMovieId(review.getMovieId())+"1");
