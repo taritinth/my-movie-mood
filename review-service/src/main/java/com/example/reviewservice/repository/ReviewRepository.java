@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends MongoRepository<Review, String> {
-//
+
     @Query(value = "{movieId:'?0'}")
     public List<Review> findByMovieId(String movieId);
 }

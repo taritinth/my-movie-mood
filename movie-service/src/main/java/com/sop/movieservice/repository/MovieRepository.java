@@ -5,9 +5,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, String> {
-//
-//    @Query(value = "{name:'?0'}")
-//    public Product findByName(String name);
+
+    @Query(value = "{name : {$regex : '?0'}")
+    public List<Movie> findByName(String name);
 }

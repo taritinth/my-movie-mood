@@ -19,4 +19,12 @@ public class MovieService {
         }
     }
 
+    public List<Movie> getMovieByName(String name) {
+        try {
+            return repository.findByName(name);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

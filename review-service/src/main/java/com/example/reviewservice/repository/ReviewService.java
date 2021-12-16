@@ -1,12 +1,15 @@
 package com.example.reviewservice.repository;
 
 import com.example.reviewservice.entities.Review;
+import org.axonframework.config.ProcessingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Component
+@ProcessingGroup("review-group")
 public class ReviewService {
     @Autowired
     private ReviewRepository repository;

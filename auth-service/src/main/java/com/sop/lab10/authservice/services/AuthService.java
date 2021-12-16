@@ -22,7 +22,7 @@ public class AuthService {
         //check email and password here
 
         User user = User.builder()
-                .id("QUERY_FROM_DB")
+                ._id("QUERY_FROM_DB")
                 .email(authRequest.getEmail())
                 .password(authRequest.getPassword())
                 .role("QUERY_FROM_DB")

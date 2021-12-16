@@ -15,6 +15,11 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @GetMapping(value = "/getMovieByName/{serchTerm}")
+    public ResponseEntity<List<Movie>> getMovieByName(@PathVariable("serchTerm") String name){
+        return ResponseEntity.ok(movieService.getMovieByName(name));
+    }
+
 //    public MovieController(final MovieService movieListService){
 //        this.movieService = movieService;
 //    }
