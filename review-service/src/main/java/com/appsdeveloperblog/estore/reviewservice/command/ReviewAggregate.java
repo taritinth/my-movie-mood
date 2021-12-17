@@ -5,10 +5,14 @@
  */
 package com.appsdeveloperblog.estore.reviewservice.command;
 
-import com.appsdeveloperblog.estore.reviewservice.command.commands.DelReviewCommand;
-import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewCreatedEvent2;
+import com.appsdeveloperblog.estore.reviewservice.command.commands.CompensationAddCommand;
+import com.appsdeveloperblog.estore.reviewservice.command.commands.CompensationDelCommand;
+import com.appsdeveloperblog.estore.reviewservice.command.commands.DeleteReviewCommand;
+import com.appsdeveloperblog.estore.reviewservice.core.events.CompensationAddEvent;
+import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewCreatedEvent;
 import com.appsdeveloperblog.estore.reviewservice.command.commands.CreateReviewCommand;
-import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewDelTestEvent;
+import com.appsdeveloperblog.estore.reviewservice.core.events.CompensationDelEvent;
+import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewDeletedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -35,31 +39,59 @@ public class ReviewAggregate {
 
     @CommandHandler
     public ReviewAggregate(CreateReviewCommand createReviewCommand) {
-        ReviewCreatedEvent2 reviewCreatedEvent2 = new ReviewCreatedEvent2();
-        BeanUtils.copyProperties(createReviewCommand, reviewCreatedEvent2);
-        AggregateLifecycle.apply(reviewCreatedEvent2);
+        ReviewCreatedEvent reviewCreatedEvent = new ReviewCreatedEvent();
+        BeanUtils.copyProperties(createReviewCommand, reviewCreatedEvent);
+        AggregateLifecycle.apply(reviewCreatedEvent);
     }
 
     @CommandHandler
-    public void on(DelReviewCommand delReviewCommand) {
-        ReviewDelTestEvent reviewDelTestEvent = new ReviewDelTestEvent();
-        BeanUtils.copyProperties(delReviewCommand, reviewDelTestEvent);
-        AggregateLifecycle.apply(reviewDelTestEvent);
+    public void on(CompensationDelCommand compensationDelCommand) {
+        CompensationDelEvent compensationDelEvent = new CompensationDelEvent();
+        BeanUtils.copyProperties(compensationDelCommand, compensationDelEvent);
+        AggregateLifecycle.apply(compensationDelEvent);
     }
 
+    @CommandHandler
+    public void on(CompensationAddCommand compensationAddCommand) {
+        CompensationAddEvent compensationAddEvent = new CompensationAddEvent();
+        BeanUtils.copyProperties(compensationAddCommand, compensationAddEvent);
+        AggregateLifecycle.apply(compensationAddEvent);
+    }
 
+    @CommandHandler
+    public void on(DeleteReviewCommand deleteReviewCommand) {
+        System.out.println("Kao aggregate");
+        ReviewDeletedEvent reviewDeletedEvent = new ReviewDeletedEvent();
+        BeanUtils.copyProperties(deleteReviewCommand, reviewDeletedEvent);
+        AggregateLifecycle.apply(reviewDeletedEvent);
+    }
 
     @EventSourcingHandler
-    public void on(ReviewCreatedEvent2 reviewCreatedEvent2) throws Exception {
-        this.reviewId = reviewCreatedEvent2.getReviewId();
-        this.movieId = reviewCreatedEvent2.getMovieId();
-        this.rating = reviewCreatedEvent2.getRating();
-        this.reviewTitle = reviewCreatedEvent2.getReviewTitle();
-        this.review = reviewCreatedEvent2.getReview();
-        this.reviewBy = reviewCreatedEvent2.getReviewBy();
-        this.movieVote = reviewCreatedEvent2.getMovieVote();
-        this.movieRating = reviewCreatedEvent2.getMovieRating();
-        this.userEmail = reviewCreatedEvent2.getUserEmail();
+    public void on(ReviewDeletedEvent reviewDeletedEvent) throws Exception {
+        this.reviewId = reviewDeletedEvent.getReviewId();
+        this.movieId = reviewDeletedEvent.getMovieId();
+        this.rating = reviewDeletedEvent.getRating();
+        this.reviewTitle = reviewDeletedEvent.getReviewTitle();
+        this.review = reviewDeletedEvent.getReview();
+        this.reviewBy = reviewDeletedEvent.getReviewBy();
+        this.movieVote = reviewDeletedEvent.getMovieVote();
+        this.movieRating = reviewDeletedEvent.getMovieRating();
+        this.userEmail = reviewDeletedEvent.getUserEmail();
+
+        System.out.println(this.reviewId);
+    }
+
+    @EventSourcingHandler
+    public void on(ReviewCreatedEvent reviewCreatedEvent) throws Exception {
+        this.reviewId = reviewCreatedEvent.getReviewId();
+        this.movieId = reviewCreatedEvent.getMovieId();
+        this.rating = reviewCreatedEvent.getRating();
+        this.reviewTitle = reviewCreatedEvent.getReviewTitle();
+        this.review = reviewCreatedEvent.getReview();
+        this.reviewBy = reviewCreatedEvent.getReviewBy();
+        this.movieVote = reviewCreatedEvent.getMovieVote();
+        this.movieRating = reviewCreatedEvent.getMovieRating();
+        this.userEmail = reviewCreatedEvent.getUserEmail();
 
         System.out.println(this.reviewId);
     }

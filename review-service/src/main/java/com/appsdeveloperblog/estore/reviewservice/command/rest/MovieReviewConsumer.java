@@ -1,9 +1,10 @@
 package com.appsdeveloperblog.estore.reviewservice.command.rest;
 
 import com.appsdeveloperblog.estore.reviewservice.command.commands.CreateReviewCommand;
+import com.appsdeveloperblog.estore.reviewservice.command.commands.DeleteReviewCommand;
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
-import com.appsdeveloperblog.estore.reviewservice.core.entities.ReviewPojo;
-import com.appsdeveloperblog.estore.reviewservice.core.repository.ReviewRepository2;
+import com.appsdeveloperblog.estore.reviewservice.core.entities.ReviewQuery;
+import com.appsdeveloperblog.estore.reviewservice.core.repository.ReviewRepositoryQuery;
 import com.appsdeveloperblog.estore.reviewservice.core.repository.ReviewService;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -27,7 +28,7 @@ public class MovieReviewConsumer {
     private ReviewService reviewService;
 
     @Autowired
-    private ReviewRepository2 reviewRepository2;
+    private ReviewRepositoryQuery reviewRepositoryQuery;
 
 
     @RabbitListener(queues = "AddMovieReviewQueue")
@@ -46,7 +47,7 @@ public class MovieReviewConsumer {
                 .build();
         review.setReviewId(uuid);
         String result;
-        List<ReviewPojo> checkReviewBy = reviewRepository2.findByReview(review.getReviewBy(), review.getMovieId());
+        List<ReviewQuery> checkReviewBy = reviewRepositoryQuery.findByReview(review.getReviewBy(), review.getMovieId());
         if(checkReviewBy.isEmpty()){
             try{
                 result = commandGateway.sendAndWait(createReviewCommand);
@@ -58,17 +59,35 @@ public class MovieReviewConsumer {
         }else{
             return false;
         }
-
-
-
     }
 
-
     @RabbitListener(queues = "GetMovieReviewQueue")
-    public List<ReviewPojo> getReviewByMovieId(String movieId){
+    public List<ReviewQuery> getReviewByMovieId(String movieId){
         return  reviewService.getReviewByMovieId(movieId);
     }
 
-
-
+    @RabbitListener(queues = "DelMovieReviewQueue")
+    public boolean deleteMovieReview(Review review) {
+        System.out.println(review);
+        DeleteReviewCommand deleteReviewCommand = DeleteReviewCommand.builder()
+                .movieId(review.getMovieId())
+                .rating(review.getRating())
+                .review(review.getReview())
+                .reviewBy(review.getReviewBy())
+                .reviewTitle(review.getReviewTitle())
+                .reviewId(review.getReviewId())
+                .userEmail(review.getUserEmail())
+                .movieVote(reviewService.getMovieById(review.getMovieId()).getVote())
+                .movieRating(reviewService.getMovieById(review.getMovieId()).getRating())
+                .build();
+        String result;
+            try{
+                result = commandGateway.sendAndWait(deleteReviewCommand);
+                return true;
+            } catch (Exception e){
+                result = e.getLocalizedMessage();
+                System.out.println(result);
+                return false;
+            }
+        }
 }

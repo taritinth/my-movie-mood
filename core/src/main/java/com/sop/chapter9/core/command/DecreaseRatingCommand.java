@@ -1,12 +1,12 @@
-package com.appsdeveloperblog.estore.reviewservice.command.commands;
+package com.sop.chapter9.core.command;
 
 import lombok.Builder;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-@Builder
 @Data
-public class DelReviewCommand {
+@Builder
+public class DecreaseRatingCommand {
     @TargetAggregateIdentifier
     private final String reviewId;
     private final String movieId;

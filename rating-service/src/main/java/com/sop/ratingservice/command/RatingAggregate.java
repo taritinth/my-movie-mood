@@ -1,7 +1,9 @@
 package com.sop.ratingservice.command;
 
 import com.sop.chapter9.core.command.CalculateRatingCommand;
-import com.sop.ratingservice.core.event.CalculateRatingBla4Event;
+import com.sop.chapter9.core.command.DecreaseRatingCommand;
+import com.sop.ratingservice.core.event.CalculateRatingEvent;
+import com.sop.ratingservice.core.event.DecreaseRatingEvent;
 import com.sop.ratingservice.core.repository.RatingService;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -38,10 +40,10 @@ public class RatingAggregate {
 
     @CommandHandler
     public RatingAggregate(CalculateRatingCommand calculateRatingCommand) {
-//        this.ratingId = UUID.randomUUID().toString();
+        this.ratingId = UUID.randomUUID().toString();
         System.out.println(calculateRatingCommand+"1");
 
-        CalculateRatingBla4Event ratingEvent = new CalculateRatingBla4Event();
+        CalculateRatingEvent ratingEvent = new CalculateRatingEvent();
         BeanUtils.copyProperties(calculateRatingCommand, ratingEvent);
         ratingEvent.setRatingId(this.ratingId);
         AggregateLifecycle.apply(ratingEvent);
@@ -55,17 +57,36 @@ public class RatingAggregate {
         }
     }
 
+    @CommandHandler
+    public RatingAggregate(DecreaseRatingCommand decreaseRatingCommand) {
+        this.ratingId = UUID.randomUUID().toString();
+        System.out.println(decreaseRatingCommand+"1");
+
+        DecreaseRatingEvent decreaseRatingEvent = new DecreaseRatingEvent();
+        BeanUtils.copyProperties(decreaseRatingCommand, decreaseRatingEvent);
+        decreaseRatingEvent.setRatingId(this.ratingId);
+        AggregateLifecycle.apply(decreaseRatingEvent);
+
+
+        System.out.println(ratingId);
+        System.out.println("in aggregate");
+
+        if (false) {
+            throw new IllegalArgumentException("exception");
+        }
+    }
+
     @EventSourcingHandler
-    public void on(CalculateRatingBla4Event calculateRatingBla4Event) {
+    public void on(CalculateRatingEvent calculateRatingEvent) {
         System.out.println("in event handler");
-        this.reviewId = calculateRatingBla4Event.getReviewId();
-        this.movieId = calculateRatingBla4Event.getMovieId();
-        this.rating = calculateRatingBla4Event.getRating();
-        this.reviewTitle = calculateRatingBla4Event.getReviewTitle();
-        this.review = calculateRatingBla4Event.getReview();
-        this.reviewBy = calculateRatingBla4Event.getReviewBy();
-        this.movieRating = calculateRatingBla4Event.getMovieRating();
-        this.movieVote = calculateRatingBla4Event.getMovieVote();
-        this.userEmail = calculateRatingBla4Event.getUserEmail();
+        this.reviewId = calculateRatingEvent.getReviewId();
+        this.movieId = calculateRatingEvent.getMovieId();
+        this.rating = calculateRatingEvent.getRating();
+        this.reviewTitle = calculateRatingEvent.getReviewTitle();
+        this.review = calculateRatingEvent.getReview();
+        this.reviewBy = calculateRatingEvent.getReviewBy();
+        this.movieRating = calculateRatingEvent.getMovieRating();
+        this.movieVote = calculateRatingEvent.getMovieVote();
+        this.userEmail = calculateRatingEvent.getUserEmail();
     }
 }
