@@ -19,14 +19,16 @@ const getToken = function () {
 const CancelToken = axios.CancelToken
 let cancel
 
+const isSecured = ['omdbapi']
+
 instance.interceptors.request.use(
   (config) => {
     const token = getToken()
+    const url = config.url
 
-    if (token) {
+    if (token && !isSecured.includes(url.replace(/.+\/\/|www.|\..+/g, ''))) {
       config.headers['Authorization'] = token
     }
-
     // if (cancel) {
     //   cancel()
     // }

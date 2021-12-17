@@ -60,15 +60,16 @@ public class MovieService {
     public Movie getMovieById(String id) {
         try {
             Movie movie = repository.findByMovieId(id);
-            MovieImdb out = WebClient.create()
-                    .get()
-                    .uri("http://www.omdbapi.com/?apikey=96475f3d&i=" + movie.getImdbId())
-                    .retrieve()
-                    .bodyToMono(MovieImdb.class)
-                    .block();
+            if (movie.getImdbId() != null) {
+                MovieImdb out = WebClient.create()
+                        .get()
+                        .uri("http://www.omdbapi.com/?apikey=96475f3d&i=" + movie.getImdbId())
+                        .retrieve()
+                        .bodyToMono(MovieImdb.class)
+                        .block();
 
-            movie.setImdbRating(Double.parseDouble(out.getImdbRating()));
-
+                movie.setImdbRating(Double.parseDouble(out.getImdbRating()));
+            }
             return movie;
         } catch (Exception e) {
             return null;

@@ -8,7 +8,8 @@
       <div class="flex flex-col items-center justify-center">
         <!-- <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow"> -->
         <img
-          src="https://dmitryvolkov.me/demo/flixtv/main/img/logo.svg"
+          class="w-28"
+          src="@/assets/img/logo.svg"
           alt="Movies &amp; TV Shows, Online cinema HTML Template"
         />
         <!-- <p class="mt-2 text-center text-sm text-gray-600">
@@ -104,6 +105,7 @@ import { axios } from '@/plugins/axios'
 
 export default {
   middleware: ['isNotLoggedIn'],
+  layout: 'general',
   data() {
     return {
       email: '',

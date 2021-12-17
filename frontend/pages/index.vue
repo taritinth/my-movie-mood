@@ -54,6 +54,7 @@ import { axios } from '@/plugins/axios'
 
 export default {
   // middleware: ['auth'],
+  layout: 'general',
   data() {
     return {
       movies: [],

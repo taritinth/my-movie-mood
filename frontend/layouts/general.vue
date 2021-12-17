@@ -8,7 +8,8 @@
           <li class="mr-20">
             <router-link to="/">
               <img
-                src="https://dmitryvolkov.me/demo/flixtv/main/img/logo.svg"
+                class="w-28"
+                src="@/assets/img/logo.svg"
                 alt="Movies &amp; TV Shows, Online cinema HTML Template"
               />
             </router-link>
@@ -96,11 +97,22 @@
               </div>
             </div>
           </div>
-          <div class="md:ml-4 mt-3 md:mt-0">
-            <router-link v-if="!$auth.loggedIn" to="/login" class="font-medium">
-              Sign in
-            </router-link>
-            <a v-else style="cursor: pointer" @click="logout">
+          <div class="flex flex-row items-center md:ml-4 mt-3 md:mt-0">
+            <div v-if="!$auth.loggedIn" class="relative mt-3 md:mt-0 mr-2">
+              <router-link to="/login" class="font-medium">
+                Sign in
+              </router-link>
+            </div>
+            <!-- <div
+              v-if="$auth.user.role == 'admin'"
+              class="relative mt-3 md:mt-0 mr-2"
+            >
+              <router-link to="/dashboard" class="font-medium">
+                Dash
+              </router-link>
+            </div> -->
+
+            <a v-if="$auth.loggedIn" style="cursor: pointer" @click="logout">
               <img
                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
                 alt="avatar"

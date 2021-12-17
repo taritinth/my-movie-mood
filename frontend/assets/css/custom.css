@@ -1,3 +1,17 @@
+body,
+button,
+input,
+optgroup,
+select,
+textarea,
+p,
+h1,
+h2,
+h3,
+span {
+  font-family: 'Prompt', sans-serif;
+}
+
 .bg-my-movie-mood {
   background-color: #131720;
 }
