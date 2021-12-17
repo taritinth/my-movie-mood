@@ -120,10 +120,25 @@ export default {
     async signUp(e) {
       e.preventDefault()
 
-      if (this.email == '' || this.password == '' || this.confirmPassword == '')
+      if (
+        this.email == '' ||
+        this.password == '' ||
+        this.confirmPassword == ''
+      ) {
+        this.$toast.error('Sorry, Please fill in all the required fields.', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         return false
+      }
 
-      if (this.password != this.confirmPassword) return false
+      if (this.password != this.confirmPassword) {
+        this.$toast.error('Sorry, Please fill in all the required fields.', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
+        return false
+      }
 
       const payload = {
         email: this.email,
@@ -134,8 +149,21 @@ export default {
       try {
         const response = await axios.post(`/auth/signup`, payload)
         console.log(response)
+
+        this.$toast.success(
+          `Successfully sign up !, Let's fall in the movie mood.`,
+          {
+            position: 'bottom-left',
+            timeout: 2000,
+          }
+        )
+
         this.$router.push('/login')
       } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         console.log(e)
       } finally {
       }

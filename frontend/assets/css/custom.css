@@ -18,3 +18,27 @@ span {
 .bg-review {
   background-color: #151f30;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #131720;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 100vh;
+  /* border: 1px solid #374151; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #151f30;
+}

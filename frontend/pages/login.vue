@@ -137,6 +137,14 @@ export default {
     async login(e) {
       e.preventDefault()
 
+      if (this.email == '' || this.password == '') {
+        this.$toast.error('Sorry, Please fill in all the required fields.', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
+        return false
+      }
+
       const payload = {
         email: this.email,
         password: this.password,
@@ -146,8 +154,16 @@ export default {
         await this.$auth.loginWith('local', {
           data: payload,
         })
+        this.$toast.success(`Logged in as ${this.$nuxt.$auth.user.email}!`, {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         this.$router.push('/')
       } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         console.log(e)
         this.$router.push('/login')
       }

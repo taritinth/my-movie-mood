@@ -44,7 +44,18 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth', // With default plugin options
+    'vue-toastification/nuxt',
+
+    // You can also pass plugin options
+    [
+      'vue-toastification/nuxt',
+      // {
+      //   timeout: 500,
+      //   draggable: false,
+      //   position: 'bottom-left',
+      // },
+    ],
   ],
 
   auth: {

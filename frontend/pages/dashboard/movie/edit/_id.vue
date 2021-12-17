@@ -2,13 +2,13 @@
   <div>
     <div class="py-4">
       <div class="flex items-center h-12">
-        <h3 class="text-3xl text-gray-100 font-normal">Add new movie</h3>
+        <h3 class="text-3xl text-gray-100 font-normal">Edit movie</h3>
       </div>
     </div>
 
     <hr class="border-t border-gray-800" />
 
-    <div class="grid grid-cols-5 gap-4 mb-40">
+    <div v-if="movie" class="grid grid-cols-5 gap-4 mb-40">
       <div class="col-span-5">
         <div
           class="flex flex-col bg-my-movie-mood border border-gray-800 shadow-md px-5 py-8 rounded-3xl w-full mt-6 mb-40"
@@ -18,7 +18,7 @@
               @focus="showDropdown"
               @blur="hideDropdown"
               @input="onSearch"
-              v-model="name"
+              v-model="movie.name"
               class="w-full p-3 pl-5 mr-4 rounded-2xl text-white border border-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 transition ease-in-out duration-300"
               style="background-color: #151f30"
               type="text"
@@ -60,7 +60,7 @@
                 </div> -->
             </div>
             <input
-              v-model="year"
+              v-model="movie.year"
               class="w-1/4 p-3 pl-5 mr-4 rounded-2xl text-white border border-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 transition ease-in-out duration-300"
               style="background-color: #151f30"
               type="text"
@@ -70,7 +70,7 @@
 
           <div class="mb-4">
             <input
-              v-model="imdbId"
+              v-model="movie.imdbId"
               class="w-full p-3 pl-5 mr-4 rounded-2xl text-white border border-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 transition ease-in-out duration-300"
               style="background-color: #151f30"
               type="text"
@@ -80,7 +80,7 @@
 
           <div class="mb-4">
             <input
-              v-model="poster"
+              v-model="movie.poster"
               class="w-full p-3 pl-5 mr-4 rounded-2xl text-white border border-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 transition ease-in-out duration-300"
               style="background-color: #151f30"
               type="text"
@@ -90,10 +90,10 @@
 
           <div>
             <button
-              @click="addMovie"
+              @click="saveMovie"
               class="rounded-2xl group relative w-1/6 flex justify-center p-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none transition ease-in-out duration-300"
             >
-              ADD
+              SAVE
             </button>
           </div>
         </div>
@@ -110,24 +110,39 @@ export default {
   layout: 'dashboard',
   data() {
     return {
+      movie: null,
       movies: [],
-      name: '',
-      year: '',
-      imdbId: '',
-      poster: '',
       debounceSearch: null,
       isSearching: false,
       isShowSearchDropdown: false,
     }
   },
   async mounted() {
-    // await this.getMovies()
+    await this.getMovie()
   },
   methods: {
+    async getMovie() {
+      try {
+        const movie = await axios.get(
+          `/movie/getMovieById/${this.$route.params.id}`
+        )
+
+        this.movie = movie.data
+
+        console.log(this.movie)
+      } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
+        console.log(e)
+      } finally {
+      }
+    },
     async searchMovie() {
       try {
         const response = await axios.get(
-          `http://www.omdbapi.com/?apikey=fb38d3b5&type=movie&s=${this.name}`
+          `http://www.omdbapi.com/?apikey=fb38d3b5&type=movie&s=${this.movie.name}`
         )
 
         console.log(response)
@@ -144,13 +159,14 @@ export default {
           position: 'bottom-left',
           timeout: 2000,
         })
+
         this.movies.splice(0)
         console.log(e)
       } finally {
       }
     },
     async onSearch() {
-      if (this.name.length >= 3) {
+      if (this.movie.name.length >= 3) {
         this.isSearching = true
         this.isShowSearchDropdown = true
 
@@ -170,25 +186,25 @@ export default {
       //   })
       console.log(movie)
 
-      this.name = movie.Title
-      this.year = movie.Year
-      this.imdbId = movie.imdbID
-      this.poster = movie.Poster
+      this.movie.name = movie.Title
+      this.movie.year = movie.Year
+      this.movie.imdbId = movie.imdbID
+      this.movie.poster = movie.Poster
     },
     showDropdown() {
-      if (this.name.length >= 3) this.isShowSearchDropdown = true
+      if (this.movie.name.length >= 3) this.isShowSearchDropdown = true
     },
     hideDropdown() {
       setTimeout(async () => {
         this.isShowSearchDropdown = false
       }, 100)
     },
-    async addMovie() {
+    async saveMovie() {
       if (
-        this.name == '' ||
-        this.year == '' ||
-        this.imdbId == '' ||
-        this.poster == ''
+        this.movie.name == '' ||
+        this.movie.year == '' ||
+        this.movie.imdbId == '' ||
+        this.movie.poster == ''
       ) {
         this.$toast.error('Sorry, Please fill in all the required fields.', {
           position: 'bottom-left',
@@ -198,26 +214,19 @@ export default {
       }
 
       try {
-        const response = await axios.post(`/movie/addMovie`, {
-          name: this.name,
-          year: this.year,
-          imdbId: this.imdbId,
-          poster: this.poster,
-          rating: 0,
-        })
+        const response = await axios.put(`/movie/editMovie`, this.movie)
 
         console.log(response)
 
         if (response.data == true) {
-          this.$toast.success('Movie was added successfully', {
+          this.$toast.success('Movie was edited successfully', {
             position: 'bottom-left',
             timeout: 2000,
           })
 
-          this.name = ''
-          this.year = ''
-          this.imdbId = ''
-          this.poster = ''
+          setTimeout(async () => {
+            await this.getMovie()
+          }, 500)
         }
       } catch (e) {
         this.$toast.error('Sorry, Something went wrong. Please try again', {

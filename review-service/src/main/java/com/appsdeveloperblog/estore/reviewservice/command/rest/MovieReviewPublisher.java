@@ -59,14 +59,13 @@ public class MovieReviewPublisher {
     }
 
     @GetMapping(value = "/getAllReviews")
-    public List<ReviewQuery> getAllReviews(@RequestHeader(value = "role") String role) {
+    public ResponseEntity<?> getAllReviews(@RequestHeader(value = "role") String role) {
         if(role.equals("admin")){
             System.out.println("get all in publisher");
             List<ReviewQuery> reviews = (List<ReviewQuery>) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "getAllReviews","get all");
-            return reviews;
-
+            return ResponseEntity.ok(reviews);
         }else{
-            return null;
+            return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
         }
     }
 

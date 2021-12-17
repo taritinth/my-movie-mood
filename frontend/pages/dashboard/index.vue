@@ -14,12 +14,13 @@
 import { axios } from '@/plugins/axios'
 
 export default {
-  // middleware: ['auth'],
+  middleware: ['auth', 'isAdmin'],
   layout: 'dashboard',
   data() {
     return {}
   },
   async mounted() {
+    this.$router.push('/dashboard/movie')
     // await this.getMovies()
   },
   methods: {},

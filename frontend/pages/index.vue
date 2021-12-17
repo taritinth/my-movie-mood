@@ -17,7 +17,7 @@
           <img
             :src="movie.poster"
             :alt="movie.name"
-            class="hover:opacity-75 transition ease-in-out duration-150 rounded-3xl"
+            class="hover:opacity-75 transition ease-in-out duration-150 rounded-3xl object-cover h-80 w-full"
           />
         </router-link>
         <div class="mt-2">
@@ -71,6 +71,10 @@ export default {
 
         this.movies = response.data
       } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         console.log(e)
       } finally {
       }

@@ -262,12 +262,6 @@ export default {
     }
   },
   async mounted() {
-    window.addEventListener('keypress', (e) => {
-      var key = e.key || e.keyCode
-      console.log(key)
-      console.log('hey')
-    })
-
     await this.getMovie()
     await this.getReviews()
   },
@@ -281,12 +275,23 @@ export default {
         this.movie = movie.data
         console.log(this.movie)
       } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         console.log(e)
       } finally {
       }
     },
+
     async addReview() {
-      if (this.title == '' || this.rating == null || this.message == '') return
+      if (this.title == '' || this.rating == null || this.message == '') {
+        this.$toast.error('Sorry, Please fill in all the required fields.', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
+        return false
+      }
 
       try {
         const response = await axios.post(`/review/addReview`, {
@@ -295,11 +300,17 @@ export default {
           rating: this.rating,
           review: this.message,
           reviewBy: this.$nuxt.$auth.user.id,
+          movieName: this.movie.name,
         })
 
         console.log(response)
 
         if (response.data == true) {
+          this.$toast.success('Review was added successfully !', {
+            position: 'bottom-left',
+            timeout: 2000,
+          })
+
           this.title = ''
           this.rating = 10
           this.message = ''
@@ -312,6 +323,10 @@ export default {
           await this.getReviews()
         }, 500)
       } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         console.log(e)
       } finally {
       }
@@ -325,6 +340,10 @@ export default {
 
         this.reviews = response.data
       } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
         console.log(e)
       } finally {
       }
