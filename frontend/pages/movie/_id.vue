@@ -331,9 +331,9 @@ export default {
           this.rating = 10
           this.message = ''
         } else {
-          this.$toast.error('Sorry, Something went wrong. Please try again', {
+          this.$toast.error(`Sorry, You've reviewed this movie already !`, {
             position: 'bottom-left',
-            timeout: 2000,
+            timeout: 3000,
           })
         }
 

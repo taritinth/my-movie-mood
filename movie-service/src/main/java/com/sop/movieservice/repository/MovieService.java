@@ -17,8 +17,6 @@ import java.util.List;
 @Service
 public class MovieService {
 
-//    @Value("${data.youtube.apiKey}")
-//    private String apiKey;
 
     private String apiKey = "AIzaSyC9YsICOM_mS2j2myqqQKNGvkSIi50FsIU";
 
@@ -86,7 +84,7 @@ public class MovieService {
                 if (!movieImdb.getString("imdbRating").equals("N/A")) {
                     movie.setImdbRating(Double.parseDouble(movieImdb.getString("imdbRating")));
                 }
-
+                movie.setDirector(movieImdb.getString("Director"));
                 movie.setPlot(movieImdb.getString("Plot"));
                 movie.setActors(movieImdb.getString("Actors"));
             }
