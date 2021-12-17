@@ -22,8 +22,6 @@ public class RatingEventsHandler {
     public void on(CalculateRatingBla4Event calculateRatingBla4Event){
 
         Boolean movieStatus = ratingService.updateRating(calculateRatingBla4Event.getMovieId(), calculateRatingBla4Event.getRating(), calculateRatingBla4Event.getMovieRating(), calculateRatingBla4Event.getMovieVote());
-        System.out.println(movieStatus);
-        System.out.println(ratingService.getMovieById("61bb16d8553c2d4fcd4c55ca"));
-        System.out.println(calculateRatingBla4Event);
+
     }
 }

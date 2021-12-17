@@ -52,7 +52,6 @@ public class ReviewAggregate {
         this.movieRating = reviewCreatedEvent2.getMovieRating();
         this.userEmail = reviewCreatedEvent2.getUserEmail();
 
-        System.out.println("tum talod mai");
         System.out.println(this.reviewId);
     }
  

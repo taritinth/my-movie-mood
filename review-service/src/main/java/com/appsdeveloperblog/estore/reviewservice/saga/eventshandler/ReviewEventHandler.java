@@ -21,6 +21,5 @@ public class ReviewEventHandler {
         Review review = new Review();
         BeanUtils.copyProperties(reviewCreatedEvent2, review);
         reviewService.addReview(review);
-        System.out.println(reviewCreatedEvent2);
     }
 }

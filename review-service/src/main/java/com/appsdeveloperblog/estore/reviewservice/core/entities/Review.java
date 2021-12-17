@@ -12,7 +12,6 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @Data
 @Document("Review")
@@ -26,5 +25,5 @@ public class Review implements Serializable {
     private String review;
     private String reviewBy;
     private String userEmail;
-    private Timestamp timestamp;
+    private String timestamp;
 }

@@ -34,10 +34,8 @@ public class RatingService {
     public Movie getMovieById(String movieId){
         try {
             Movie movie = movieRepository.findByMovieId(movieId);
-            System.out.println("gettid");
             return movie;
         } catch (Exception e) {
-            System.out.println("get maitid");
             return null;
         }
     }
@@ -45,10 +43,8 @@ public class RatingService {
     public List<Movie> getAllMovie(){
         try {
             List<Movie> movie = movieRepository.findAll();
-            System.out.println("gettid");
             return movie;
         } catch (Exception e) {
-            System.out.println("get maitid");
             return null;
         }
     }

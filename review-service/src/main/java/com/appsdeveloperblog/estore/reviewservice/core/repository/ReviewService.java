@@ -4,6 +4,7 @@ import com.appsdeveloperblog.estore.reviewservice.core.entities.Movie;
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
 import com.appsdeveloperblog.estore.reviewservice.core.entities.ReviewPojo;
 import com.appsdeveloperblog.estore.reviewservice.core.events.MovieRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ public class ReviewService {
     private ReviewRepository repository;
 
     @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
     private ReviewRepository2 reviewRepository2;
 
     @Autowired
@@ -23,22 +27,27 @@ public class ReviewService {
 
     public List<ReviewPojo> getReviewByMovieId(String movieId) {
         try {
-            System.out.println("d");
             return reviewRepository2.findByMovieId(movieId);
         } catch (Exception e) {
-            System.out.println("ex");
             return null;
         }
     }
 
-    public boolean addReview(Review review) {
+    public Boolean addReview(Review review) {
         try {
-            Review checkReviewId = repository.findByReviewId(review.getReviewId());
+            ReviewPojo checkReviewId = reviewRepository2.findByReviewId(review.getReviewId());
             if(checkReviewId == null){
-                review.setTimestamp(new Timestamp(System.currentTimeMillis()));
-                repository.save(review);
-                return true;
+                List<ReviewPojo> checkReviewBy = reviewRepository2.findByReview(review.getReviewBy(), review.getMovieId());
+                if(checkReviewBy.isEmpty()){
+                    review.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
+                    repository.save(review);
+                    return false;
+                }else{
+                    System.out.println("รีวิวซ้ำคน");
+                    return false;
+                }
             }else{
+                System.out.println("รีวิวซ้ำจาก event");
                 return false;
             }
         } catch (Exception e) {
@@ -49,10 +58,8 @@ public class ReviewService {
     public Movie getMovieById(String movieId){
         try {
             Movie movie = movieRepository.findByMovieId(movieId);
-            System.out.println("gettid");
             return movie;
         } catch (Exception e) {
-            System.out.println("get maitid");
             return null;
         }
     }

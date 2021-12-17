@@ -31,9 +31,9 @@ public class ReviewSaga {
                 .userEmail(review.getUserEmail())
                 .build();
         commandGateway.send(calculateRatingCommand, (commandMessage, commandResultMessage) -> {
-            System.out.println("this is sout commmand " + commandResultMessage);
+            System.out.println("this is a commmand " + commandResultMessage);
             if (commandResultMessage.isExceptional()) {
-                System.out.println("tum nai exception");
+                System.out.println("exception here");
                 // Start compensating transaction
             }
         });
