@@ -7,6 +7,7 @@ package com.appsdeveloperblog.estore.reviewservice.command.rest;
 
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
 
+import com.appsdeveloperblog.estore.reviewservice.core.entities.ReviewQuery;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,18 @@ public class MovieReviewPublisher {
         }else{
             return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
         }
+    }
 
+    @GetMapping(value = "/getAllReviews")
+    public List<ReviewQuery> getAllReviews(@RequestHeader(value = "role") String role) {
+        if(role.equals("admin")){
+            System.out.println("get all in publisher");
+            List<ReviewQuery> reviews = (List<ReviewQuery>) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "getAllReviews","get all");
+            return reviews;
+
+        }else{
+            return null;
+        }
     }
 
 

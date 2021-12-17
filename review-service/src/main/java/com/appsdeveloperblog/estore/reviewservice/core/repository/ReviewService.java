@@ -74,4 +74,13 @@ public class ReviewService {
             return null;
         }
     }
+
+    public List<ReviewQuery> getAllReviews(){
+        try {
+            List<ReviewQuery> review = reviewRepositoryQuery.findAll();
+            return review;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

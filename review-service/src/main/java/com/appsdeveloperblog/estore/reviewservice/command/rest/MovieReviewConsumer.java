@@ -66,6 +66,12 @@ public class MovieReviewConsumer {
         return  reviewService.getReviewByMovieId(movieId);
     }
 
+    @RabbitListener(queues = "GetAllReviewsQueue")
+    public List<ReviewQuery> getAllReviews(String getAll){
+        System.out.println(getAll);
+        return  reviewService.getAllReviews();
+    }
+
     @RabbitListener(queues = "DelMovieReviewQueue")
     public boolean deleteMovieReview(Review review) {
         System.out.println(review);
