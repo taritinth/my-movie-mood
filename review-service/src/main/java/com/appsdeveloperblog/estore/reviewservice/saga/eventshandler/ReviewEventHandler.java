@@ -3,6 +3,7 @@ package com.appsdeveloperblog.estore.reviewservice.saga.eventshandler;
 
 import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
 import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewCreatedEvent2;
+import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewDelTestEvent;
 import com.appsdeveloperblog.estore.reviewservice.core.repository.ReviewService;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
@@ -21,5 +22,12 @@ public class ReviewEventHandler {
         Review review = new Review();
         BeanUtils.copyProperties(reviewCreatedEvent2, review);
         reviewService.addReview(review);
+    }
+
+    @EventHandler
+    public void on(ReviewDelTestEvent reviewDelTestEvent){
+        Review review = new Review();
+        BeanUtils.copyProperties(reviewDelTestEvent, review);
+        reviewService.deleteReviewById(review);
     }
 }

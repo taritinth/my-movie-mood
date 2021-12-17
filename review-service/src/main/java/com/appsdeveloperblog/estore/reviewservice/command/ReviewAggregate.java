@@ -5,8 +5,10 @@
  */
 package com.appsdeveloperblog.estore.reviewservice.command;
 
+import com.appsdeveloperblog.estore.reviewservice.command.commands.DelReviewCommand;
 import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewCreatedEvent2;
 import com.appsdeveloperblog.estore.reviewservice.command.commands.CreateReviewCommand;
+import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewDelTestEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -36,6 +38,13 @@ public class ReviewAggregate {
         ReviewCreatedEvent2 reviewCreatedEvent2 = new ReviewCreatedEvent2();
         BeanUtils.copyProperties(createReviewCommand, reviewCreatedEvent2);
         AggregateLifecycle.apply(reviewCreatedEvent2);
+    }
+
+    @CommandHandler
+    public void on(DelReviewCommand delReviewCommand) {
+        ReviewDelTestEvent reviewDelTestEvent = new ReviewDelTestEvent();
+        BeanUtils.copyProperties(delReviewCommand, reviewDelTestEvent);
+        AggregateLifecycle.apply(reviewDelTestEvent);
     }
 
 

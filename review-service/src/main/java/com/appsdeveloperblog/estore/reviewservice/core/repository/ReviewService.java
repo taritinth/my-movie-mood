@@ -33,6 +33,17 @@ public class ReviewService {
         }
     }
 
+    public boolean deleteReviewById(Review review) {
+        try {
+            ReviewPojo checkReviewBy = reviewRepository2.findByReviewId(review.getReviewId());
+            reviewRepository2.delete(checkReviewBy);
+            System.out.println("del complete");
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public Boolean addReview(Review review) {
         try {
             ReviewPojo checkReviewId = reviewRepository2.findByReviewId(review.getReviewId());

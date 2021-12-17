@@ -1,5 +1,6 @@
 package com.appsdeveloperblog.estore.reviewservice.saga;
 
+import com.appsdeveloperblog.estore.reviewservice.command.commands.DelReviewCommand;
 import com.appsdeveloperblog.estore.reviewservice.core.events.ReviewCreatedEvent2;
 import com.sop.chapter9.core.command.CalculateRatingCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -35,6 +36,25 @@ public class ReviewSaga {
             if (commandResultMessage.isExceptional()) {
                 System.out.println("exception here");
                 // Start compensating transaction
+                DelReviewCommand delReviewCommand = DelReviewCommand.builder()
+                        .reviewId(review.getReviewId())
+                        .movieId(review.getMovieId())
+                        .rating(review.getRating())
+                        .reviewTitle(review.getReviewTitle())
+                        .review(review.getReview())
+                        .movieVote(review.getMovieVote())
+                        .movieRating(review.getMovieRating())
+                        .reviewBy(review.getReviewBy())
+                        .userEmail(review.getUserEmail())
+                        .build();
+                String result;
+                try{
+                    result = commandGateway.sendAndWait(delReviewCommand);
+                    System.out.println("send del command");
+                } catch (Exception e){
+                    result = e.getLocalizedMessage();
+                }
+
             }
         });
     }

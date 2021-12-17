@@ -38,7 +38,7 @@ public class RatingAggregate {
 
     @CommandHandler
     public RatingAggregate(CalculateRatingCommand calculateRatingCommand) {
-        this.ratingId = UUID.randomUUID().toString();
+//        this.ratingId = UUID.randomUUID().toString();
         System.out.println(calculateRatingCommand+"1");
 
         CalculateRatingBla4Event ratingEvent = new CalculateRatingBla4Event();
