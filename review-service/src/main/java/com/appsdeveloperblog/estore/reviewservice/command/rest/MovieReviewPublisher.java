@@ -10,6 +10,8 @@ import com.appsdeveloperblog.estore.reviewservice.core.entities.Review;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,10 +31,14 @@ public class MovieReviewPublisher {
     }
 
     @PostMapping(value = "/addReview")
-    public boolean addMovieReview(@RequestBody Review review, @RequestHeader(value = "email") String email) {
-        review.setUserEmail(email);
-        boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "addReview", review);
-        return status;
+    public ResponseEntity<?> addMovieReview(@RequestBody Review review, @RequestHeader(value = "email") String email, @RequestHeader(value = "id") String id) {
+        if (review.getReviewBy().equals(id)) {
+            review.setUserEmail(email);
+            boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "addReview", review);
+            return ResponseEntity.ok(status);
+        }else{
+            return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
+        }
     }
 
     @GetMapping(value = "/getReview/{movieId}")
@@ -42,9 +48,14 @@ public class MovieReviewPublisher {
     }
 
     @PostMapping(value = "/delReview")
-    public boolean deleteMovieReview(@RequestBody Review review) {
-        boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "delReview", review);
-        return status;
+    public ResponseEntity<?> deleteMovieReview(@RequestBody Review review, @RequestHeader(value = "id") String id, @RequestHeader(value = "role") String role) {
+        if (review.getReviewBy().equals(id) || role.equals("admin")){
+            boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "delReview", review);
+            return ResponseEntity.ok(status);
+        }else{
+            return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
+        }
+
     }
 
 
