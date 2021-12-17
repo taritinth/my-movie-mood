@@ -314,6 +314,11 @@ export default {
           this.title = ''
           this.rating = 10
           this.message = ''
+        } else {
+          this.$toast.error('Sorry, Something went wrong. Please try again', {
+            position: 'bottom-left',
+            timeout: 2000,
+          })
         }
 
         // await this.getReviews()
