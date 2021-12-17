@@ -37,9 +37,14 @@ public class MovieReviewPublisher {
 
     @GetMapping(value = "/getReview/{movieId}")
     public List<Review> getMovieReview(@PathVariable("movieId") String movieId) {
-//        MovieReview mr = new MovieReview(movieName, score, review, reviewBy);
         List<Review> reviews = (List<Review>) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "getReview", movieId);
         return reviews;
+    }
+
+    @PostMapping(value = "/delReview")
+    public boolean deleteMovieReview(@RequestBody Review review) {
+        boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "delReview", review);
+        return status;
     }
 
 

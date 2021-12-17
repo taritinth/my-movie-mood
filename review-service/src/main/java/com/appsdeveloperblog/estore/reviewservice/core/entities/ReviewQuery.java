@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Document("Review")
-public class ReviewPojo implements Serializable {
+public class ReviewQuery implements Serializable {
 
     @Id
     private String _id;

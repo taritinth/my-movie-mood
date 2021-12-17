@@ -31,6 +31,27 @@ public class RatingService {
         }
     }
 
+    public boolean decreaseRating(String movieId, Double rating, Double movieRating, int movieVote){
+        try {
+            Movie movie = movieRepository.findByMovieId(movieId);
+            int decreaseVote = movieVote - 1;
+            Double newRating;
+            if (decreaseVote == 0){
+                newRating = 0.0;
+            }else {
+                newRating = ((movieRating * movieVote) - rating) / decreaseVote;
+            }
+            df.setRoundingMode(RoundingMode.DOWN);
+            movie.setVote(decreaseVote);
+            movie.setRating(Double.parseDouble(df.format(newRating)));
+            movieRepository.save(movie);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return false;
+        }
+    }
+
     public Movie getMovieById(String movieId){
         try {
             Movie movie = movieRepository.findByMovieId(movieId);
