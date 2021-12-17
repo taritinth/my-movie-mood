@@ -75,7 +75,7 @@ public class MovieService {
             if (movie.getImdbId() != null) {
                 String movieImdbStr = WebClient.create()
                         .get()
-                        .uri("http://www.omdbapi.com/?apikey=96475f3d&i=" + movie.getImdbId())
+                        .uri("http://www.omdbapi.com/?apikey=fb38d3b5&i=" + movie.getImdbId())
                         .retrieve()
                         .bodyToMono(String.class)
                         .block();
