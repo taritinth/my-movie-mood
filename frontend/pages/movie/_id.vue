@@ -34,6 +34,22 @@
           <p v-if="movie.plot" class="text-gray-300 mt-8">
             {{ movie.plot }}
           </p>
+          <div v-if="movie.director" class="mt-8">
+            <h4 class="text-white font-semibold">Director</h4>
+            <p class="text-gray-300">
+              {{ movie.director }}
+            </p>
+            <!-- <div class="flex">
+              <div class="mr-8">
+                <div>Robert Richardson</div>
+                <div class="text-sm text-gray-400">Director of Photography</div>
+              </div>
+              <div class="mr-8">
+                <div>Andy Serkis</div>
+                <div class="text-sm text-gray-400">Director</div>
+              </div>
+            </div> -->
+          </div>
           <div v-if="movie.actors" class="mt-8">
             <h4 class="text-white font-semibold">Actors</h4>
             <p class="text-gray-300">
