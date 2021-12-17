@@ -5,7 +5,7 @@
     </h2>
 
     <div
-      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8"
+      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-20"
     >
       <div v-for="movie in movies" :key="movie._id" class="mt-8">
         <router-link
@@ -38,7 +38,7 @@
                 ></path>
               </g>
             </svg>
-            <span class="ml-1">{{ movie.rating }}</span>
+            <span class="ml-1">{{ movie.rating || 'N/A' }}</span>
             <span class="mx-2">|</span>
             <span>{{ movie.year }}</span>
           </div>

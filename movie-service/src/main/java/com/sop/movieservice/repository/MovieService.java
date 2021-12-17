@@ -83,7 +83,10 @@ public class MovieService {
 
                 System.out.println(movieImdb);
 
-                movie.setImdbRating(Double.parseDouble(movieImdb.getString("imdbRating")));
+                if (!movieImdb.getString("imdbRating").equals("N/A")) {
+                    movie.setImdbRating(Double.parseDouble(movieImdb.getString("imdbRating")));
+                }
+
                 movie.setPlot(movieImdb.getString("Plot"));
                 movie.setActors(movieImdb.getString("Actors"));
             }
