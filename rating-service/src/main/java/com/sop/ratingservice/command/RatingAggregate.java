@@ -30,6 +30,7 @@ public class RatingAggregate {
     private Double movieRating;
     private int movieVote;
     private String userEmail;
+    private String movieName;
 
     @Autowired
     private RatingService ratingService;
@@ -88,5 +89,6 @@ public class RatingAggregate {
         this.movieRating = calculateRatingEvent.getMovieRating();
         this.movieVote = calculateRatingEvent.getMovieVote();
         this.userEmail = calculateRatingEvent.getUserEmail();
+        this.movieName = calculateRatingEvent.getMovieName();
     }
 }

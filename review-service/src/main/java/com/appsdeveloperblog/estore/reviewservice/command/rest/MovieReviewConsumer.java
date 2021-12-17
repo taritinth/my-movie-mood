@@ -42,6 +42,7 @@ public class MovieReviewConsumer {
                 .reviewTitle(review.getReviewTitle())
                 .reviewId(uuid)
                 .userEmail(review.getUserEmail())
+                .movieName(review.getMovieName())
                 .movieVote(reviewService.getMovieById(review.getMovieId()).getVote())
                 .movieRating(reviewService.getMovieById(review.getMovieId()).getRating())
                 .build();
@@ -83,6 +84,7 @@ public class MovieReviewConsumer {
                 .reviewTitle(review.getReviewTitle())
                 .reviewId(review.getReviewId())
                 .userEmail(review.getUserEmail())
+                .movieName(review.getMovieName())
                 .movieVote(reviewService.getMovieById(review.getMovieId()).getVote())
                 .movieRating(reviewService.getMovieById(review.getMovieId()).getRating())
                 .build();

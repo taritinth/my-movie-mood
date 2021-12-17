@@ -51,6 +51,7 @@ public class ReviewService {
                 List<ReviewQuery> checkReviewBy = reviewRepositoryQuery.findByReview(review.getReviewBy(), review.getMovieId());
                 if(checkReviewBy.isEmpty()){
                     review.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
+                    System.out.println(review.getMovieName());
                     repository.save(review);
                     return false;
                 }else{

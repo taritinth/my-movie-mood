@@ -17,4 +17,5 @@ public class CompensationAddEvent {
     private Double movieRating;
     private int movieVote;
     private String userEmail;
+    private String movieName;
 }

@@ -22,4 +22,5 @@ public class CreateReviewCommand {
     private final Double movieRating;
     private final int movieVote;
     private final String userEmail;
+    private final String movieName;
 }

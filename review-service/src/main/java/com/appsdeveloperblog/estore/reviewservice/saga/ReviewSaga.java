@@ -30,6 +30,7 @@ public class ReviewSaga {
                 .movieVote(review.getMovieVote())
                 .movieRating(review.getMovieRating())
                 .reviewBy(review.getReviewBy())
+                .movieName(review.getMovieName())
                 .userEmail(review.getUserEmail())
                 .build();
         commandGateway.send(calculateRatingCommand, (commandMessage, commandResultMessage) -> {
@@ -47,6 +48,7 @@ public class ReviewSaga {
                         .movieRating(review.getMovieRating())
                         .reviewBy(review.getReviewBy())
                         .userEmail(review.getUserEmail())
+                        .movieName(review.getMovieName())
                         .build();
                 String result;
                 try{
@@ -73,6 +75,7 @@ public class ReviewSaga {
                 .movieVote(review.getMovieVote())
                 .movieRating(review.getMovieRating())
                 .reviewBy(review.getReviewBy())
+                .movieName(review.getMovieName())
                 .userEmail(review.getUserEmail())
                 .build();
         commandGateway.send(decreaseRatingCommand, (commandMessage, commandResultMessage) -> {
@@ -90,6 +93,7 @@ public class ReviewSaga {
                         .movieRating(review.getMovieRating())
                         .reviewBy(review.getReviewBy())
                         .userEmail(review.getUserEmail())
+                        .movieName(review.getMovieName())
                         .build();
                 String result;
                 try{

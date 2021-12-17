@@ -33,6 +33,7 @@ public class ReviewAggregate {
     private Double movieRating;
     private int movieVote;
     private String userEmail;
+    private String movieName;
     
     public ReviewAggregate() {
     }
@@ -77,6 +78,7 @@ public class ReviewAggregate {
         this.movieVote = reviewDeletedEvent.getMovieVote();
         this.movieRating = reviewDeletedEvent.getMovieRating();
         this.userEmail = reviewDeletedEvent.getUserEmail();
+        this.movieName = reviewDeletedEvent.getMovieName();
 
         System.out.println(this.reviewId);
     }
@@ -92,6 +94,7 @@ public class ReviewAggregate {
         this.movieVote = reviewCreatedEvent.getMovieVote();
         this.movieRating = reviewCreatedEvent.getMovieRating();
         this.userEmail = reviewCreatedEvent.getUserEmail();
+        this.movieName =reviewCreatedEvent.getMovieName();
 
         System.out.println(this.reviewId);
     }

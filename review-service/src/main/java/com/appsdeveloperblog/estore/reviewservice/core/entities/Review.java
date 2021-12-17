@@ -25,5 +25,6 @@ public class Review implements Serializable {
     private String review;
     private String reviewBy;
     private String userEmail;
+    private String movieName;
     private String timestamp;
 }

@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalculateRatingEvent {
-//    private String _Id;
     private String ratingId;
     private String reviewId;
     private String movieId;
@@ -24,4 +23,5 @@ public class CalculateRatingEvent {
     private Double movieRating;
     private int movieVote;
     private String userEmail;
+    private String movieName;
 }
