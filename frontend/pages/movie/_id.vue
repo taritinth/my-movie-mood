@@ -120,7 +120,7 @@
       </div>
       <div class="grid grid-cols-5 gap-4 mt-12">
         <div class="col-span-3 pt-12">
-          <h3 class="text-3xl font-semibold">Reviews ({{ movie.vote }})</h3>
+          <h3 class="text-2xl font-semibold">Reviews ({{ movie.vote }})</h3>
           <div
             v-for="review in reviews"
             :key="review._id"
@@ -141,7 +141,7 @@
                       review.reviewTitle
                     }}</span>
                     <span class="text-xs text-gray-400"
-                      >{{ review.timestamp }} by {{ review.reviewBy }}</span
+                      >{{ review.timestamp }} by {{ review.userEmail }}</span
                     >
                   </div>
                 </div>

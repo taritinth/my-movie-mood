@@ -15,7 +15,8 @@ public class RouterValidator {
             "/movie/getAllMovies",
             "/movie/getMovieById",
             "/auth/signup",
-            "/auth/login"
+            "/auth/login",
+            "/review/getReview"
     );
 
     public Predicate<ServerHttpRequest> isSecured =

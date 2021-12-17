@@ -20,7 +20,7 @@ public class MovieService {
 //    @Value("${data.youtube.apiKey}")
 //    private String apiKey;
 
-    private String apiKey = "AIzaSyC-TOnOUk49WNWbgd85P7ekBnatFvaEbQw";
+    private String apiKey = "AIzaSyC9YsICOM_mS2j2myqqQKNGvkSIi50FsIU";
 
     @Autowired
     private MovieRepository repository;
@@ -88,31 +88,33 @@ public class MovieService {
                 movie.setActors(movieImdb.getString("Actors"));
             }
 
-            String ytObjectStr = WebClient.create()
-                    .get()
-                    .uri("https://youtube.googleapis.com/youtube/v3/search?q=" + movie.getName() + " trailer" + "&key=" + apiKey)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-            JSONObject ytObject = new JSONObject(ytObjectStr);
-            JSONArray ytArray = ytObject.getJSONArray("items");
-
-            JSONObject ytItem = ytArray.getJSONObject(0);
-            JSONObject ytVdo = ytItem.getJSONObject("id");
-
-            String vdoId = ytVdo.getString("videoId");
-
-            System.out.println(ytArray);
-            System.out.println(ytItem);
-            System.out.println(ytVdo);
-            System.out.println(vdoId);
-
-            movie.setYoutubeId(vdoId);
+//            String ytObjectStr = WebClient.create()
+//                    .get()
+//                    .uri("https://youtube.googleapis.com/youtube/v3/search?q=" + movie.getName() + " trailer" + "&key=" + apiKey)
+//                    .retrieve()
+//                    .bodyToMono(String.class)
+//                    .block();
+//            JSONObject ytObject = new JSONObject(ytObjectStr);
+//            JSONArray ytArray = ytObject.getJSONArray("items");
+//
+//            JSONObject ytItem = ytArray.getJSONObject(0);
+//            JSONObject ytVdo = ytItem.getJSONObject("id");
+//
+//            String vdoId = ytVdo.getString("videoId");
+//
+//            System.out.println(ytArray);
+//            System.out.println(ytItem);
+//            System.out.println(ytVdo);
+//            System.out.println(vdoId);
+//
+//            movie.setYoutubeId(vdoId);
 
             return movie;
         } catch (Exception e) {
             //thrown exception
-            return null;
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+//            return null;
         }
     }
 
