@@ -3,14 +3,25 @@ package com.sop.movieservice.repository;
 import com.sop.movieservice.entities.Movie;
 import com.sop.movieservice.entities.MovieImdb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
 public class MovieService {
+
+//    @Value("${data.youtube.apiKey}")
+//    private String apiKey;
+
+    private String apiKey = "AIzaSyC-TOnOUk49WNWbgd85P7ekBnatFvaEbQw";
+
     @Autowired
     private MovieRepository repository;
 
@@ -60,18 +71,47 @@ public class MovieService {
     public Movie getMovieById(String id) {
         try {
             Movie movie = repository.findByMovieId(id);
+
             if (movie.getImdbId() != null) {
-                MovieImdb out = WebClient.create()
+                String movieImdbStr = WebClient.create()
                         .get()
                         .uri("http://www.omdbapi.com/?apikey=96475f3d&i=" + movie.getImdbId())
                         .retrieve()
-                        .bodyToMono(MovieImdb.class)
+                        .bodyToMono(String.class)
                         .block();
+                JSONObject movieImdb = new JSONObject(movieImdbStr);
 
-                movie.setImdbRating(Double.parseDouble(out.getImdbRating()));
+                System.out.println(movieImdb);
+
+                movie.setImdbRating(Double.parseDouble(movieImdb.getString("imdbRating")));
+                movie.setPlot(movieImdb.getString("Plot"));
+                movie.setActors(movieImdb.getString("Actors"));
             }
+
+            String ytObjectStr = WebClient.create()
+                    .get()
+                    .uri("https://youtube.googleapis.com/youtube/v3/search?q=" + movie.getName() + " trailer" + "&key=" + apiKey)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            JSONObject ytObject = new JSONObject(ytObjectStr);
+            JSONArray ytArray = ytObject.getJSONArray("items");
+
+            JSONObject ytItem = ytArray.getJSONObject(0);
+            JSONObject ytVdo = ytItem.getJSONObject("id");
+
+            String vdoId = ytVdo.getString("videoId");
+
+            System.out.println(ytArray);
+            System.out.println(ytItem);
+            System.out.println(ytVdo);
+            System.out.println(vdoId);
+
+            movie.setYoutubeId(vdoId);
+
             return movie;
         } catch (Exception e) {
+            //thrown exception
             return null;
         }
     }

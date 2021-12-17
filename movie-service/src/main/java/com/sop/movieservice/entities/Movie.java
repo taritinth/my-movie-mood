@@ -22,4 +22,5 @@ public class Movie {
     private Double imdbRating;
     private String plot;
     private String actors;
+    private String youtubeId;
 }

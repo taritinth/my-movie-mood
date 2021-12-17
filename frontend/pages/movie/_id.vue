@@ -103,7 +103,9 @@
                     >
                       <iframe
                         class="responsive-iframe absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/j5Jq6jA1jLA"
+                        :src="
+                          'https://www.youtube.com/embed/' + movie.youtubeId
+                        "
                         style="border: 0"
                         allow="autoplay; encrypted-media"
                         allowfullscreen=""
@@ -275,19 +277,6 @@ export default {
         )
 
         this.movie = movie.data
-
-        // ------------ //
-        // this return only Plot and Actors that cannot get from WebClient(JAVA)
-        // ------------ //
-
-        if (this.movie.imdbId) {
-          const movieImdb = await axios.get(
-            `http://www.omdbapi.com/?apikey=96475f3d&i=${this.movie.imdbId}`
-          )
-          this.movie.plot = movieImdb.data.Plot
-          this.movie.actors = movieImdb.data.Actors
-        }
-
         console.log(this.movie)
       } catch (e) {
         console.log(e)
