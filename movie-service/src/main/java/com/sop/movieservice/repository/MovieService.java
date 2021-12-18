@@ -89,30 +89,6 @@ public class MovieService {
                 movie.setActors(movieImdb.getString("Actors"));
             }
 
-<<<<<<< HEAD
-            String ytObjectStr = WebClient.create()
-                    .get()
-                    .uri("https://youtube.googleapis.com/youtube/v3/search?q=" + movie.getName() + " trailer" + "&key=" + apiKey)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-            JSONObject ytObject = new JSONObject(ytObjectStr);
-            JSONArray ytArray = ytObject.getJSONArray("items");
-
-            JSONObject ytItem = ytArray.getJSONObject(0);
-            JSONObject ytVdo = ytItem.getJSONObject("id");
-
-            String vdoId = ytVdo.getString("videoId");
-
-            System.out.println(ytArray);
-            System.out.println(ytItem);
-            System.out.println(ytVdo);
-            System.out.println(vdoId);
-
-            movie.setYoutubeId(vdoId);
-=======
->>>>>>> e7d3ab516b695dba14d4ff22e5c0ce777ca056ce
-
             String ytObjectStr = WebClient.create()
                     .get()
                     .uri("https://youtube.googleapis.com/youtube/v3/search?q=" + movie.getName() + " trailer" + "&key=" + apiKey)
