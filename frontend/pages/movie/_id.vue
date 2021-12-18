@@ -164,7 +164,7 @@
                   </div>
                 </div>
 
-                <div class="flex flex-row items-center">
+                <div class="flex flex-row items-center mr-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -175,6 +175,30 @@
                     ></path>
                   </svg>
                   <span>{{ review.rating }}</span>
+                </div>
+
+                <div
+                  v-if="
+                    ($auth.loggedIn && $auth.user.role == 'admin') ||
+                    $auth.user.id == review.reviewBy
+                  "
+                  class="flex flex-row items-center"
+                >
+                  <button
+                    @click="deleteReview(review)"
+                    class="mr-2 rounded-1xl group relative flex justify-center p-1 border border-transparent text-sm font-medium rounded-md text-red-500 bg-blue-600 hover:bg-blue-700 focus:outline-none transition ease-in-out duration-300"
+                    style="background-color: rgba(235, 87, 87, 0.2)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      class="fill-current w-4"
+                    >
+                      <path
+                        d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"
+                      ></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
               <div class="pt-4">
@@ -360,6 +384,31 @@ export default {
         console.log(response)
 
         this.reviews = response.data
+      } catch (e) {
+        this.$toast.error('Sorry, Something went wrong. Please try again', {
+          position: 'bottom-left',
+          timeout: 2000,
+        })
+        console.log(e)
+      } finally {
+      }
+    },
+    async deleteReview(review) {
+      try {
+        const response = await axios.post(`/review/delReview`, review)
+        console.log(response)
+
+        if (response.data == true) {
+          this.$toast.success('Review was deleted successfully !', {
+            position: 'bottom-left',
+            timeout: 2000,
+          })
+
+          setTimeout(async () => {
+            await this.getReviews()
+            await this.getMovie()
+          }, 500)
+        }
       } catch (e) {
         this.$toast.error('Sorry, Something went wrong. Please try again', {
           position: 'bottom-left',
