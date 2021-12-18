@@ -48,16 +48,6 @@ public class MovieReviewPublisher {
         return reviews;
     }
 
-    @PostMapping(value = "/delReview")
-    public ResponseEntity<?> deleteMovieReview(@RequestBody Review review, @RequestHeader(value = "id") String id, @RequestHeader(value = "role") String role) {
-        if (review.getReviewBy().equals(id) || role.equals("admin")){
-            boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "delReview", review);
-            return ResponseEntity.ok(status);
-        }else{
-            return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
-        }
-    }
-
     @GetMapping(value = "/getAllReviews")
     public ResponseEntity<?> getAllReviews(@RequestHeader(value = "role") String role) {
         if(role.equals("admin")){
@@ -68,6 +58,18 @@ public class MovieReviewPublisher {
             return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
         }
     }
+
+    @PostMapping(value = "/delReview")
+    public ResponseEntity<?> deleteMovieReview(@RequestBody Review review, @RequestHeader(value = "id") String id, @RequestHeader(value = "role") String role) {
+        if (review.getReviewBy().equals(id) || role.equals("admin")){
+            boolean status = (boolean) rabbitTemplate.convertSendAndReceive("MyMovieMoodDirect", "delReview", review);
+            return ResponseEntity.ok(status);
+        }else{
+            return new ResponseEntity<>("FORBIDDEN", HttpStatus.FORBIDDEN);
+        }
+    }
+
+
 
 
 }
