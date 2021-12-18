@@ -180,7 +180,7 @@
                 <div
                   v-if="
                     ($auth.loggedIn && $auth.user.role == 'admin') ||
-                    $auth.user.id == review.reviewBy
+                    ($auth.loggedIn && $auth.user.id == review.reviewBy)
                   "
                   class="flex flex-row items-center"
                 >
