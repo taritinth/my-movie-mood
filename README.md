@@ -1,5 +1,5 @@
 ## My Movie Mood
-A movie review platform developed using microservice architecture with Spring Boot, RabbitMQ, etc.
+เว็บแอปพลิเคชันรีวิวหนังสำหรับบุคคลทั่วไปที่สามารถเข้าไปรีวิวหนังและชมการรีวิวได้โดยไม่จำเป็นต้องเป็นนักวิจารณ์
 
 ## Screenshot
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/0.png">
