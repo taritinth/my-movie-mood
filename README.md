@@ -1,6 +1,16 @@
 ## My Movie Mood
 * เว็บแอปพลิเคชันรีวิวหนังสำหรับบุคคลทั่วไปที่สามารถเข้าไปรีวิวหนังและชมการรีวิวได้โดยไม่จำเป็นต้องเป็นนักวิจารณ์
-* โครงงานนี้เป็นส่วนหนึ่งของวิชา Service Oriented Programming | คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
+* โครงงานนี้เป็นส่วนหนึ่งของวิชา Service Oriented Programming คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
+
+## Knowledge used
+* Service Oriented Programming
+* Object Oriented Programming
+* Service Discovery
+* API Gateway
+* Event Sourcing
+* Saga Pattern
+* Service Communication (RabbitMQ)
+* User Interface (Nuxt.js)
 
 ## Screenshot
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/0.png">
