@@ -9,8 +9,8 @@
 * API Gateway
 * Event Sourcing
 * Saga Pattern
-* Service Communication (RabbitMQ)
-* User Interface (Nuxt.js)
+* Service Communication
+* User Interface
 
 ## Screenshot
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/0.png">
