@@ -6,10 +6,10 @@
 * Service Oriented Programming
 * Object Oriented Programming
 * Service Discovery
+* Message Queue Brokers
 * API Gateway
 * Event Sourcing
 * Saga Pattern
-* Service Communication
 * User Interface
 
 ## Screenshot
