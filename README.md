@@ -12,8 +12,18 @@
 * Saga Pattern
 * User Interface
 
-## Screenshot
+## Overview
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/0.png">
+
+## Setup
+### Prerequisite
+* RabbitMQ
+* Axon Framework
+* MongoDB
+* OMDb API (The Open Movie Database)
+* YouTube Data API
+
+## Screenshot
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/1.png">
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/2.png">
 <img width="100%" src="https://github.com/taritinth/my-movie-mood/blob/main/img/4.png">
